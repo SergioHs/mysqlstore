@@ -10,9 +10,9 @@ const dbConfig = {
 
 const dbConnection = mysql.createConnection(dbConfig);
 
-dbConnection.connect((err) => {
-    if(err) {
-        console.error('Erro ao conectar o banco de dados:' + err)
+dbConnection.connect((meuErrinhoDeMysql) => {
+    if(meuErrinhoDeMysql) {
+        console.error('Erro ao conectar o banco de dados:' + meuErrinhoDeMysql)
     } else {
         console.log('Sucesso! Conexão com banco de dados bem-sucedida!')
     }
