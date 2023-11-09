@@ -14,6 +14,16 @@ router.get('/', (req, res) => {
 
 })
 
+router.get('/withCategories', (req, res) => {
+    productController.getProductsWithCategories()
+        .then((productsData) => {
+            res.json(productsData)
+        })
+        .catch((error) => {
+            res.status(500).send('Erro ao obter produtos com categorias!')
+        })
+})
+
 router.get('/:id', (req, res) => {
     productController.getProductsById(req.params.id)
         .then((productData) => {

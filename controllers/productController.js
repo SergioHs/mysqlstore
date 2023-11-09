@@ -19,7 +19,17 @@ const getProductsById = async (productId) => {
     }
 }
 
+const getProductsWithCategories = async () => {
+    try{
+        const products = productData.getProductsWithCategories()
+        return products;
+    } catch (error) {
+        throw new Error("Erro ao obter produtos com categorias. Detalhes: " + error.message)
+    }
+}
+
 module.exports = {
     getProducts,
-    getProductsById
+    getProductsById,
+    getProductsWithCategories
 }

@@ -34,7 +34,25 @@ const getProductById = (productId) => {
     })  
 }
 
+const getProductsWithCategories = () => {
+    return new Promise((resolve, reject) => {
+        const query = 
+        `SELECT products.product_title, categories.category_name
+        FROM products INNER JOIN categories 
+        ON products.category_id = categories.category_id;`
+
+        dbConnection.query(query, (err, result) => {
+            if(err){
+                reject(err)
+            } else {
+                resolve(result)
+            }
+        })
+    });
+}
+
 module.exports = {
     getProducts,
-    getProductById
+    getProductById,
+    getProductsWithCategories
 }

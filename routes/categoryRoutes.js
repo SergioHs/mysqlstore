@@ -2,8 +2,22 @@ const express = require('express')
 const router = express.Router();
 const categoryController = require('../controllers/categoryController');
 
+
+router.get('/', (req, res) => {
+    categoryController.getCategories()
+        .then((categoriesData) => {
+            res.json(categoriesData)
+
+        })
+        .catch((error) => {
+            res.status(500).send('Erro ao obter produtos!' + error)
+        }) 
+
+})
+
+
 router.post('/', (req, res) => {
-    const category_name = req.body;
+    const {category_name} = req.body;
     categoryController.createCategory(category_name)
         .then((result) => {
             res.status(200).json({message: 'Categoria criada com sucesso! Id: ' + result.insertId})
@@ -13,5 +27,15 @@ router.post('/', (req, res) => {
         })
 })
 
+router.delete('/:id', (req, res) => {
+    const category_id = req.params.id;
+    categoryController.deleteCategory(category_id)
+        .then((result) => {
+            res.status(200).send("Excluido com sucesso!")
+        })
+        .catch((error) => {
+            res.status(500).send('Erro ao excluir categoria! ' + error)
+        })
+})
 
 module.exports = router;
