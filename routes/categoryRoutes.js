@@ -10,9 +10,19 @@ router.get('/', (req, res) => {
 
         })
         .catch((error) => {
-            res.status(500).send('Erro ao obter produtos!' + error)
+            res.status(500).send('Erro ao obter categorias!' + error)
         }) 
 
+})
+
+router.get('/categoriesOrderByName', (req, res) => {
+    categoryController.categoriesOrderByName()
+        .then((result) => {
+            res.json(result)
+        })
+        .catch((error) => {
+            res.status(500).send('Erro ao obter categorias ordenadas pelo nome. Detalhes: ' + error)
+        })
 })
 
 

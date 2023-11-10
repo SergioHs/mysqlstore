@@ -13,6 +13,19 @@ router.get('/', (req, res) => {
         }) 
 
 })
+// http://localhost:3000/products/paginated?page=2&pageSize=15
+router.get('/paginated', (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 20;
+
+    productController.getProductsPaginated(page, pageSize)
+        .then((products) => {
+            res.json(products)
+        }) 
+        .catch((error) => {
+            res.status(500).send('Erro ao obter produtos!' + error)
+        })
+})
 
 router.get('/withCategories', (req, res) => {
     productController.getProductsWithCategories()

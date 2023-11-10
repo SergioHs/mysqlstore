@@ -39,7 +39,8 @@ const getProductsWithCategories = () => {
         const query = 
         `SELECT products.product_title, categories.category_name
         FROM products INNER JOIN categories 
-        ON products.category_id = categories.category_id;`
+        ON products.category_id = categories.category_id
+        ORDER BY category_name;`
 
         dbConnection.query(query, (err, result) => {
             if(err){
@@ -51,8 +52,24 @@ const getProductsWithCategories = () => {
     });
 }
 
+const getProductsPaginated = (startIndex, pageSize) => {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM products ORDER BY product_title LIMIT ?, ?';
+        const values = [startIndex, pageSize];
+
+        dbConnection.query(query, values, (err, result) => {
+            if(err){
+                reject(err)
+            } else {
+                resolve(result)
+            }
+        })
+    })
+}
+
 module.exports = {
     getProducts,
     getProductById,
-    getProductsWithCategories
+    getProductsWithCategories,
+    getProductsPaginated
 }

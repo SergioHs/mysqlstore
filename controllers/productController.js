@@ -19,6 +19,27 @@ const getProductsById = async (productId) => {
     }
 }
 
+const getProductsPaginated = async (page = 1, pageSize = 20) => {
+    try {
+
+        if(page === 0){
+            page = 1;
+        }
+
+        const startIndex = (page - 1) * pageSize;
+
+        const products = productData.getProductsPaginated(startIndex, pageSize)
+        
+        return products;
+
+    } catch (error) {
+        throw new Error("Erro ao obter produtos paginados! Detalhes: " + error.message)
+    }
+    
+
+}
+
+
 const getProductsWithCategories = async () => {
     try{
         const products = productData.getProductsWithCategories()
@@ -31,5 +52,6 @@ const getProductsWithCategories = async () => {
 module.exports = {
     getProducts,
     getProductsById,
-    getProductsWithCategories
+    getProductsWithCategories,
+    getProductsPaginated
 }
