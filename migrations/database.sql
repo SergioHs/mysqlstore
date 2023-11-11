@@ -16,7 +16,9 @@ CREATE TABLE products (
     product_rate DECIMAL(3,1),
     product_count INT,
     category_id INT,
-    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+    FOREIGN KEY (category_id) 
+    REFERENCES categories(category_id) 
+    ON DELETE CASCADE;
 );
 
 CREATE TABLE users (
@@ -36,15 +38,13 @@ CREATE TABLE carts (
     cart_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     cart_date DATETIME,
-    cart_status BOOLEAN,
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    cart_status BOOLEAN
 );
 
 CREATE TABLE cart_products (
     cart_products_id INT PRIMARY KEY AUTO_INCREMENT,
-    cart_products_quantity INT,
+    cart_products_quatity INT,
     cart_id INT,
     product_id INT,
-    FOREIGN KEY (cart_id) REFERENCES carts(cart_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );

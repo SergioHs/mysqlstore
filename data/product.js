@@ -11,7 +11,6 @@ const getProducts = () => {
                 resolve(results);
             }
         });
-
     })
 }
 
@@ -67,9 +66,65 @@ const getProductsPaginated = (startIndex, pageSize) => {
     })
 }
 
+const deleteProductsByCategoryId = (category_id) => {
+    return  new Promise((resolve, reject) => {
+        const query = 'DELETE FROM products WHERE category_id = ?';
+        
+        dbConnection.query(query, [category_id], (err, result) => {
+            if(err){
+                reject(err)
+            } else {
+                resolve(result)
+            }
+        })
+    })
+}
+
+const createProduct = (
+    product_title, 
+    product_price,
+    product_description,
+    product_image,
+    product_rate,
+    product_count,
+    category_id
+) => {
+    return new Promise((resolve, reject) => {
+        const query = `
+        INSERT INTO products (
+            product_title, 
+            product_price,
+            product_description,
+            product_image,
+            product_rate,
+            product_count,
+            category_id
+        ) VALUES (?,?,?,?,?,?,?)`;
+        values = [
+            product_title, 
+            product_price,
+            product_description,
+            product_image,
+            product_rate,
+            product_count,
+            category_id
+        ];
+
+        dbConnection.query(query, values, (err, result) => {
+            if(err){
+                reject(err);
+            } else {
+                resolve(result)
+            }
+        })
+    })
+}
+
 module.exports = {
     getProducts,
     getProductById,
     getProductsWithCategories,
-    getProductsPaginated
+    getProductsPaginated,
+    deleteProductsByCategoryId,
+    createProduct
 }
