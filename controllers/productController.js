@@ -48,7 +48,7 @@ const getProductsWithCategories = async () => {
     }
 }
 
-const createProduct = async ({
+const createProduct = async (
     product_title, 
     product_price,
     product_description,
@@ -56,7 +56,7 @@ const createProduct = async ({
     product_rate,
     product_count,
     category_id
-}) => {
+) => {
     try {
         product_rate = product_rate || 0;
         product_count = product_count || 0;

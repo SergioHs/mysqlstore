@@ -54,6 +54,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', upload.single('product_image'), (req, res) => {
+
     const product_image = req.file.filename;
     const {
         product_title, 
@@ -63,7 +64,7 @@ router.post('/', upload.single('product_image'), (req, res) => {
         product_count,
         category_id
     } = req.body;
-
+    
     productController.createProduct(
         product_title, 
         product_price,
