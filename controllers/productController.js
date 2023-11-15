@@ -9,6 +9,17 @@ const getProducts = async () => {
     }
 }
 
+const searchProducts = async (searchTerm) => {
+
+    try {
+        const products = productData.searchProducts(searchTerm)
+        return products;
+
+    } catch (error) {
+        throw new Error ("Erro ao encontrar produtos! Detalhes: " + error)
+    }
+}
+
 const getProductsById = async (productId) => {
     try {
         const product = productData.getProductById(productId)
@@ -81,5 +92,6 @@ module.exports = {
     getProductsById,
     getProductsWithCategories,
     getProductsPaginated,
-    createProduct
+    createProduct,
+    searchProducts
 }

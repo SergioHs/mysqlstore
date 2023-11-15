@@ -12,9 +12,22 @@ router.get('/', (req, res) => {
         .catch((error) => {
             res.status(500).send('Erro ao obter produtos!' + error)
         }) 
-
 })
-// http://localhost:3000/products/paginated?page=2&pageSize=15
+
+// localhost:3000/products/search/?searchTerm=
+router.get('/search', (req, res) => {
+    const searchTerm = req.query.searchTerm;
+    productController.searchProducts(searchTerm)
+    .then((products) => {
+        res.json(products)
+    })
+    .catch((error) => {
+        res.status(500).send("Erro ao buscar produto por termo! Detalhes: " + error)
+    })
+})
+
+
+// localhost:3000/products/paginated?page=2&pageSize=15
 router.get('/paginated', (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const pageSize = parseInt(req.query.pageSize) || 20;

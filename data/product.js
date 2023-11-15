@@ -14,6 +14,21 @@ const getProducts = () => {
     })
 }
 
+const searchProducts = (searchTerm) => {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM products WHERE product_title LIKE ? OR product_description LIKE ?';
+        const searchTermLike =  `%${searchTerm}%`;
+
+        dbConnection.query(query, [searchTermLike, searchTermLike], (err, results) => {
+            if(err) {
+                reject(err)
+            } else {
+                resolve(results)
+            }
+        })
+    })
+}
+
 const getProductById = (productId) => {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM products WHERE product_id = ?';
@@ -126,5 +141,6 @@ module.exports = {
     getProductsWithCategories,
     getProductsPaginated,
     deleteProductsByCategoryId,
-    createProduct
+    createProduct,
+    searchProducts
 }
